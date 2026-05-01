@@ -1209,6 +1209,18 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
  <a href="contact.html">Contact Us</a> 
+<button onclick="payNow()">Pay Now</button>
+
+<script>
+async function payNow() {
+  const res = await fetch("https://myweb-backend-8en8.onrender.com/create-order", {
+    method: "POST"
+  });
+
+  const data = await res.json();
+  window.location.href = data.payment_link;
+}
+</script>
 </body>
 </html>
 
