@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HireMagnet</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f0f14;
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#payBtn {
+  background: orange;
+  color: white;
+}
+
+#downloadBtn {
+  background: green;
+  color: black;
+  display: none;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>HireMagnet Resume Builder</h1>
+<p>Create your resume and pay ₹99 to download</p>
+
+<button id="payBtn">Pay ₹99</button>
+
+<br><br>
+
+<button id="downloadBtn">Download Resume</button>
+
+<script>
+const BACKEND_URL = "https://myweb-backend-8en8.onrender.com";
+
+// Payment button
+document.getElementById("payBtn").onclick = async function () {
+  try {
+    const res = await fetch(BACKEND_URL + "/create-order", {
+      method: "POST"
+    });
+
+    const data = await res.json();
+
+    if (data.payment_link) {
+      window.location.href = data.payment_link;
+    } else {
+      alert("Payment link not received");
+    }
+
+  } catch (err) {
+    alert("Server error. Backend not working.");
+  }
+};
+
+// TEMP unlock (for testing only)
+setTimeout(() => {
+  document.getElementById("downloadBtn").style.display = "block";
+}, 8000);
+
+// Fake download (replace later)
+document.getElementById("downloadBtn").onclick = function () {
+  alert("Resume downloaded (demo)");
+};
+</script>
+
+</body>
+</html>
